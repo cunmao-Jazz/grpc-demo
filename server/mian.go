@@ -4,7 +4,14 @@ import (
 	"fmt"
 	"net"
 	"net/rpc"
+	"github.com/cunmao-Jazz/grpc-demo/service"
 )
+
+//var
+//var var1 int = "str"
+// var _ Service = &HelloService{}
+//我们声明了一个空指针,强制把这个指针转换成了一个HelloService
+var _ service.Service = (*HelloService)(nil)
 
 type HelloService struct {
 }
@@ -13,26 +20,26 @@ type HelloService struct {
 //该函数需要被客户端调用
 //改造成符合rpc规范的函数签名
 //1 第一个参数 requset，inerface{}
-func (s *HelloService) Hello(req string,resp *string) error{
-	*resp = fmt.Sprintf("Hello,%s",req)
+func (s *HelloService) Hello(req string, resp *string) error {
+	*resp = fmt.Sprintf("Hello,%s", req)
 	return nil
 }
 
 func main() {
 	//把要提供的服务注册给rpc框架
-	err:=rpc.RegisterName("HelloService", new(HelloService))
+	err := rpc.RegisterName("HelloService", new(HelloService))
 	if err != nil {
 		panic(err)
 	}
 
 	// 监听socket
-	listener,err := net.Listen("tcp",":3580")
+	listener, err := net.Listen("tcp", ":3580")
 	if err != nil {
 		panic(err)
 	}
 
 	for {
-		conn,err:=listener.Accept()
+		conn, err := listener.Accept()
 		if err != nil {
 			panic(err)
 		}
