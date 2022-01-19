@@ -5,8 +5,7 @@ import (
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
-
-	"github.com/cunmao-Jazz/grpc-demo/service"
+	"github.com/cunmao-Jazz/grpc-demo/rpc/service"
 )
 
 var _ service.Service = (*HelloServiceClient)(nil)
@@ -24,6 +23,7 @@ func NewHelloServiceClient(network, address string) (service.Service, error) {
 		client: client,
 	}, nil
 }
+
 
 type HelloServiceClient struct {
 	client *rpc.Client
@@ -46,6 +46,7 @@ func main() {
 	}
 	var resp string
 	client.Hello("boo", &resp)
+
 
 	fmt.Println(resp)
 }

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package hello;
+option go_package="github.com/cunmao-Jazz/grpc-demo/protobuf";
+
+import "google/protobuf/any.proto";
+
+message ErrorStatus {
+  string message = 1;
+  google.protobuf.Any details = 2;
+}
+
+
+message String {
+    reserved 4,6 to 10;
+    string value = 1;
+    optional string key = 2;
+
+    map<string,string> lables = 5;
+
+    String1 String1 = 11;
+}
+
+message String1 {
+    string value = 1;
+    optional string key = 2;
+    double metric_value = 4;
+    
+    repeated string option =5;
+}
+
+//定义枚举类型
+enum Option {
+    //枚举选项
+    //必须从0开始
+    option allow_alias = true;
+    A = 0;
+    B = 1;
+    C = 2;
+    D = 0;
+}
+
+message Sub1 {
+    string name = 1;
+}
+
+message Sub2 {
+    string name = 1;
+}
+
+message SampleMessage {
+    oneof test_oneof {
+        Sub1 sub1 = 1;
+        Sub2 sub2 = 2;
+    }
+}
+

@@ -1,0 +1,24 @@
+syntax =  "proto3";
+
+package grpc.demo.protocol;
+option go_package="github.com/cunmao-Jazz/grpc-demo/protocol";
+
+//grpc 需要定义rpc
+service HelloService {
+    //Hello rpc的名称
+    //Request rpc参数
+    //Response rpc的返回
+    rpc Hello(Request) returns (Response);
+
+    //stream rpc 双向流
+    rpc Chat(stream Request) returns (stream Response);
+
+}
+
+message Request {
+    string value = 1;
+}
+
+message Response {
+    string value = 1;
+}

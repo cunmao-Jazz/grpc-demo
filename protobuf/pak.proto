@@ -1,0 +1,11 @@
+syntax  = "proto3";
+
+package pkg;
+
+option go_package="github.com/cunmao-Jazz/grpc-demo/protobuf";
+
+import "hello.proto";
+
+message Pkg1 {
+    hello.String1 String = 1;
+}
